@@ -21,7 +21,8 @@
   },
   "homepage": "https://github.com/tonistiigi/pangalink.net-client",
   "dependencies": {
-    "nomnom": "^1.6.2"
+    "nomnom": "^1.6.2",
+    "request": "^2.34.0"
   },
   "bin": {
     "pangalink.net-client": "./cli.js"
