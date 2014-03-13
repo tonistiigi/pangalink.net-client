@@ -92,7 +92,19 @@ Client.prototype.addProject = function(data, cb) {
 }
 
 Client.prototype.deleteProject = function(id, cb) {
+  var req = emptyRequest(this)
+  req.url += 'project/' + id
+  req.method = 'DELETE'
 
+  request(req, function(err, resp, json) {
+    if (err) return cb(err)
+    if (json.error) {
+      cb(errorResponse(json))
+    }
+    else {
+      cb(null, json.data)
+    }
+  })
 }
 
 function emptyRequest(client) {

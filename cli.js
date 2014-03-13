@@ -83,7 +83,10 @@ function get(opt) {
 
 function del(opt) {
   var client = createClient()
-  console.log('del', opt)
+  client.deleteProject(opt.id, function(err, result) {
+    assert.ifError(err)
+    console.log(result)
+  })
 }
 
 function createClient() {
