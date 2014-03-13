@@ -75,7 +75,10 @@ function add(opt) {
 
 function get(opt) {
   var client = createClient()
-  console.log('get', opt)
+  client.getProject(opt.id, function(err, result) {
+    assert.ifError(err)
+    console.log(opt.format ? result[opt.format] : result)
+  })
 }
 
 function del(opt) {

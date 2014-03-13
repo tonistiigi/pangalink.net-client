@@ -57,7 +57,18 @@ Client.prototype.getProjects = function(opt, cb) {
 }
 
 Client.prototype.getProject = function(id, cb) {
+  var req = emptyRequest(this)
+  req.url += 'project/' + id
 
+  request(req, function(err, resp, json) {
+    if (err) return cb(err)
+    if (json.error) {
+      cb(errorResponse(json))
+    }
+    else {
+      cb(null, json.data)
+    }
+  })
 }
 
 Client.prototype.addProject = function(data, cb) {
