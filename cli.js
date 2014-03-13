@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+var assert = require('assert')
 var nomnom = require('nomnom')
 
 var USAGE =
@@ -28,7 +29,18 @@ nomnom.command('list')
 
 nomnom.command('add')
   .help('Add new project')
-  //.option('foo', {help: 'Foo bar baz'})
+  .option('type', {help: '', required: true, choices:
+    ['swedbank', 'seb', 'sampo', 'krediidipank', 'ipizza', 'nordea', 'ec',
+     'lhv', 'swedbank.lv', 'swedbank.lt', 'tapiola', 'handelsbanken',
+     'alandsbanken', 'aktiasppop']})
+  .option('name', {help: '', required: true})
+  .option('description', {help: ''})
+  .option('account_owner', {help: ''})
+  .option('account_nr', {help: ''})
+  .option('key_size', {help: ''})
+  .option('return_url', {help: ''})
+  .option('algo', {help: ''})
+  .option('auto_response', {help: ''})
   .callback(add)
 
 nomnom.command('get')
@@ -52,7 +64,10 @@ function list(opt) {
 
 function add(opt) {
   var client = createClient()
-  console.log('add', opt)
+  client.addProject(opt, function(err, result) {
+    assert.ifError(err)
+    console.log(result)
+  })
 }
 
 function get(opt) {
