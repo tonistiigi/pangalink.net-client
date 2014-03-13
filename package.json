@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/tonistiigi/pangalink.net-client/issues"
   },
-  "homepage": "https://github.com/tonistiigi/pangalink.net-client"
+  "homepage": "https://github.com/tonistiigi/pangalink.net-client",
+  "dependencies": {
+    "nomnom": "^1.6.2"
+  }
 }
