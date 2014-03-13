@@ -59,7 +59,10 @@ nomnom.parse()
 
 function list(opt) {
   var client = createClient()
-  console.log('list', opt)
+  client.getProjects(opt, function(err, result) {
+    assert.ifError(err)
+    console.log(result)
+  })
 }
 
 function add(opt) {

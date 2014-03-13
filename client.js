@@ -18,6 +18,42 @@ Client.prototype.getProjects = function(opt, cb) {
     opt = {}
     cb = opt
   }
+  var req = emptyRequest(this)
+  req.url += 'project'
+
+  var results = []
+  loadFromIndex(opt.startIndex || 0)
+
+  function loadFromIndex(index) {
+    req.qs = {start_index: index}
+    request(req, function(err, resp, json) {
+      if (err) return cb(err)
+      if (json.error) {
+        cb(errorResponse(json))
+      }
+      else {
+        json = json.data
+        // more rows than needed
+        if (opt.endIndex && opt.endIndex < json.end_index) {
+          json.list = json.list.slice(0, opt.endIndex - json.end_index)
+        }
+        results = results.concat(json.list)
+        // need to make more requests
+        if (json.end_index + 1 < json.total &&
+           (!opt.endIndex || opt.endIndex > json.end_index)) {
+          loadFromIndex(json.end_index + 1)
+        }
+        else {
+          cb(null, opt.filter ? results.filter(filter) : results)
+        }
+      }
+    })
+  }
+
+  function filter(p) {
+    var regexp = new RegExp(opt.filter)
+    return regexp.test(p.name) || regexp.test(p.type)
+  }
 }
 
 Client.prototype.getProject = function(id, cb) {
