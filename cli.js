@@ -2,6 +2,7 @@
 
 var assert = require('assert')
 var nomnom = require('nomnom')
+var table = require('easy-table')
 
 var USAGE =
   'Use environmental variables to set your API key and Mashape key.\n' +
@@ -22,6 +23,7 @@ nomnom.help('See "pangalink.net-client <command> --help" for more details.' +
 
 nomnom.command('banks')
   .help('Show available banks')
+  .option('json', {abbr: 'j', flag: true, help: 'Output JSON'})
   .callback(banks)
 
 nomnom.command('list')
@@ -29,6 +31,7 @@ nomnom.command('list')
   .option('startIndex', {abbr: 's', help: 'Skip items until this index.'})
   .option('endIndex', {abbr: 'e', help: 'Skip items after this index.'})
   .option('filter', {abbr: 'f', help: 'Only show matching projects.'})
+  .option('json', {abbr: 'j', flag: true, help: 'Output JSON'})
   .callback(list)
 
 nomnom.command('add')
@@ -63,7 +66,7 @@ function banks(opt) {
   var client = createClient()
   client.getBanks(function(err, result) {
     assert.ifError(err)
-    console.log(result)
+    console.log(opt.json ? JSON.stringify(result, false, 2) : table.printArray(result))
   })
 }
 
@@ -71,7 +74,7 @@ function list(opt) {
   var client = createClient()
   client.getProjects(opt, function(err, result) {
     assert.ifError(err)
-    console.log(result)
+    console.log(opt.json ? JSON.stringify(result, false, 2) : table.printArray(result))
   })
 }
 
@@ -79,7 +82,7 @@ function add(opt) {
   var client = createClient()
   client.addProject(opt, function(err, result) {
     assert.ifError(err)
-    console.log(result)
+    console.log(JSON.stringify(result, false, 2))
   })
 }
 
@@ -87,7 +90,7 @@ function get(opt) {
   var client = createClient()
   client.getProject(opt.id, function(err, result) {
     assert.ifError(err)
-    console.log(opt.format ? result[opt.format] : result)
+    console.log(opt.format ? result[opt.format] : JSON.stringify(result, false, 2))
   })
 }
 
