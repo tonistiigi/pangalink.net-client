@@ -20,6 +20,10 @@ nomnom.script('pangalink.net-client')
 nomnom.help('See "pangalink.net-client <command> --help" for more details.' +
   '\n\n' + USAGE)
 
+nomnom.command('banks')
+  .help('Show available banks')
+  .callback(banks)
+
 nomnom.command('list')
   .help('List all projects')
   .option('startIndex', {abbr: 's', help: 'Skip items until this index.'})
@@ -29,10 +33,8 @@ nomnom.command('list')
 
 nomnom.command('add')
   .help('Add new project')
-  .option('type', {help: '', required: true, choices:
-    ['swedbank', 'seb', 'sampo', 'krediidipank', 'ipizza', 'nordea', 'ec',
-     'lhv', 'swedbank.lv', 'swedbank.lt', 'tapiola', 'handelsbanken',
-     'alandsbanken', 'aktiasppop']})
+  .option('type', {help: 'See `pangalink.net-client banks` for supported values',
+    required: true})
   .option('name', {help: '', required: true})
   .option('description', {help: ''})
   .option('account_owner', {help: ''})
@@ -56,6 +58,14 @@ nomnom.command('delete')
 
 nomnom.parse()
 
+
+function banks(opt) {
+  var client = createClient()
+  client.getBanks(function(err, result) {
+    assert.ifError(err)
+    console.log(result)
+  })
+}
 
 function list(opt) {
   var client = createClient()

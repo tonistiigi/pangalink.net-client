@@ -107,6 +107,20 @@ Client.prototype.deleteProject = function(id, cb) {
   })
 }
 
+Client.prototype.getBanks = function(cb) {
+  var req = emptyRequest(this)
+  req.url += 'banks'
+  request(req, function(err, resp, json) {
+    if (err) return cb(err)
+    if (json.error) {
+      cb(errorResponse(json))
+    }
+    else {
+      cb(null, json.data)
+    }
+  })
+}
+
 function emptyRequest(client) {
   var headers = {access_token: client.apiKey}
   if (client.mashapeKey) {
