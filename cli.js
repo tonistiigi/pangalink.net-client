@@ -5,7 +5,7 @@ var nomnom = require('nomnom')
 var table = require('easy-table')
 
 var USAGE =
-  'Use environmental variables to set your API key and Mashape key.\n' +
+  'Use environment variables to set your API key and Mashape key.\n' +
   'API keys can be copied from: https://pangalink.net/api\n\n' +
   'For one time use:\n' +
   '> PANGALINK_API_KEY=abc PANGALINK_MASHAPE_KEY=def pangalink.net-client\n' +

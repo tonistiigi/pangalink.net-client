@@ -42,6 +42,7 @@ Small command line utility is also included. To use it install the module global
 Usage: pangalink.net-client <command>
 
 command
+  banks      Show available banks
   list       List all projects
   add        Add new project
   get        Get project's parameters
@@ -49,7 +50,7 @@ command
 
 See "pangalink.net-client <command> --help" for more details.
 
-Use environmental variables to set your API key and Mashape key.
+Use environment variables to set your API key and Mashape key.
 API keys can be copied from: https://pangalink.net/api
 
 For one time use:
@@ -64,7 +65,7 @@ For permanent usage, add export calls to ~/.basrc file.
 
 
 
- ✪  pangalink.net-client list --help                                                                                                                              !10513
+ ✪  pangalink.net-client list --help
 
 Usage: pangalink.net-client list [options]
 
@@ -72,6 +73,7 @@ Options:
    -s, --startIndex   Skip items until this index.
    -e, --endIndex     Skip items after this index.
    -f, --filter       Only show matching projects.
+   -j, --json         Output JSON
 
 List all projects
 
