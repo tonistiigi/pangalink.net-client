@@ -4,7 +4,7 @@ Small Node.js client for pangalink.net API.
 var pangalink = require('pangalink.net-client')
 var client = pangalink.createClient()
 
-/* opt: apiKey, mashapeKey, url */
+/* opt: apiKey, url */
 client.getProjects([opt], function(err, projects) {
 
 })
@@ -26,7 +26,6 @@ If API keys are not set library tries to load them from environment variables:
 
 ```
 PANGALINK_API_KEY
-PANGALINK_MASHAPE_KEY
 ```
 
 Setting these env variables is the preferred way for using the library.
@@ -50,15 +49,14 @@ command
 
 See "pangalink.net-client <command> --help" for more details.
 
-Use environment variables to set your API key and Mashape key.
+Use environment variables to set your API key.
 API keys can be copied from: https://pangalink.net/api
 
 For one time use:
-> PANGALINK_API_KEY=abc PANGALINK_MASHAPE_KEY=def pangalink.net-client
+> PANGALINK_API_KEY=abc pangalink.net-client
 
 Activate for current session:
 > export PANGALINK_API_KEY=abc
-> export PANGALINK_MASHAPE_KEY=abc
 > pangalink.net-client
 
 For permanent usage, add export calls to ~/.basrc file.

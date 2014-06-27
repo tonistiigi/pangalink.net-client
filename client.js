@@ -5,7 +5,6 @@ exports.Client = Client
 
 function Client(opt) {
   this.apiKey = opt.apiKey
-  this.mashapeKey = opt.mashapeKey
   this.url = opt.url
 
   if (this.url[this.url.length - 1] !== '/') {
@@ -123,9 +122,6 @@ Client.prototype.getBanks = function(cb) {
 
 function emptyRequest(client) {
   var headers = {access_token: client.apiKey}
-  if (client.mashapeKey) {
-    headers['X-Mashape-Authorization'] = client.mashapeKey
-  }
 
   return {
     url: client.url,
